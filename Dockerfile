@@ -1,7 +1,6 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG DEPENDENCY
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","hello.DockerMavenImageApplication"]
+# Alpine Linux with OpenJDK JRE
+FROM openjdk:8-jre-alpine
+# copy WAR into image
+COPY spring-boot-app-0.0.1-SNAPSHOT.jar /app.jar 
+# run application with this command line 
+CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "/app.jar"]
